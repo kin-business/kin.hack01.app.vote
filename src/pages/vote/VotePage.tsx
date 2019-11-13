@@ -1,14 +1,14 @@
 import * as React from "react";
-import { ReactRouterProps } from "../../types/ReactRouterProps";
+import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
 import { observePoll } from "../../firebase/db";
-import { ISavedPoll } from "../../types/vote";
+import { ISavedPoll, IPoll } from "../../types/vote";
+import * as routes from "../../constants/routes";
+import PollItemView from "../../component/PollItemView";
 
 export interface IVotePageProps extends ReactRouterProps {}
 
-export interface IVotePageState {
+export interface IVotePageState extends IStateBase {
   poll?: ISavedPoll;
-  isLoading: boolean;
-  error?: string;
 }
 
 export default class VotePage extends React.Component<
@@ -26,16 +26,26 @@ export default class VotePage extends React.Component<
     });
   }
 
-  public renderVote() {
-    var { poll } = this.state;
+  public renderVote(poll: ISavedPoll) {
     if (poll === null) return;
-    return <div>{poll!.name}</div>;
+    return (
+      <div>
+        <h1>{poll.name}</h1>
+        {poll.voteItem.map((item, i) => (
+          <PollItemView item={item}></PollItemView>
+        ))}
+      </div>
+    );
   }
 
   public render() {
     return (
       <div>
-        {this.state.isLoading ? <div>loading...</div> : this.renderVote()}
+        {this.state.isLoading ? (
+          <div>loading...</div>
+        ) : (
+          this.renderVote(this.state.poll!)
+        )}
       </div>
     );
   }

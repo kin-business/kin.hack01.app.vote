@@ -10,7 +10,7 @@ export interface ISavedPoll extends IPoll {
 export interface IPollItem {
   description: string;
   cost?: number;
-  link?: number;
-  image?: number;
-  starFeature?: number;
+  link?: string;
+  image?: string;
+  starFeature?: string;
 }
