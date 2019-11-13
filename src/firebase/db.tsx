@@ -9,7 +9,8 @@ export const observePoll = (id: string, callBack: (poll: ISavedPoll) => void) =>
       callBack({
         id: x.id,
         name: x.get("name"),
-        voteItem: x.get("voteItem")
+        voteItem: x.get("voteItem"),
+        isPublished: x.get("isPublished") === true
       });
     });
 

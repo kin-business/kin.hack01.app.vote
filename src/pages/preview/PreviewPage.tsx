@@ -1,9 +1,10 @@
 import * as React from "react";
-import { observePoll } from "../../firebase/db";
+import { observePoll, updatePoll } from "../../firebase/db";
 import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
 import { ISavedPoll } from "../../types/vote";
-import PollItemView from "../../component/PollItemView";
+import PollView from "../../component/PollView";
 import * as routes from "../../constants/routes";
+import { Button, Row, Container, Col } from "react-bootstrap";
 
 export interface IPreviewPageProps extends ReactRouterProps {}
 
@@ -21,10 +22,27 @@ export default class PreviewPage extends React.Component<
   }
 
   public componentDidMount() {
-    observePoll(this.props.match.params.id, tests => {
-      this.setState({ poll: tests, isLoading: false });
+    const { history } = this.props;
+    observePoll(this.props.match.params.id, poll => {
+      if (poll.isPublished === true) {
+        history.push(routes.VOTE.replace(":id", poll.id));
+      }
+      this.setState({ poll: poll, isLoading: false });
     });
   }
+
+  publish(event: any, url: string) {
+    let { poll } = this.state;
+    poll!.isPublished = true;
+    const { history } = this.props;
+    event.preventDefault();
+    this.setState({ isLoading: true });
+    updatePoll(poll!).then(result => {
+      this.setState({ isLoading: false });
+      history.push(url);
+    });
+  }
+
   onClick(event: any, url: string) {
     const { history } = this.props;
     event.preventDefault();
@@ -33,28 +51,33 @@ export default class PreviewPage extends React.Component<
 
   public renderPoll(poll: ISavedPoll) {
     return (
-      <div>
-        <h1>{poll.name}</h1>
-        {poll.voteItem.map((item, i) => (
-          <PollItemView item={item}></PollItemView>
-        ))}
-
-        <a
-          href="back"
-          onClick={e =>
-            this.onClick(e, routes.CREATE_LOAD.replace(":id", poll.id))
-          }
-        >
-          [Back]
-        </a>
-
-        <a
-          href="post"
-          onClick={e => this.onClick(e, routes.VOTE.replace(":id", poll.id))}
-        >
-          [Create]
-        </a>
-      </div>
+      <Container>
+        <PollView poll={poll}></PollView>
+        <Row>
+          <Col className={"text-center mt-2"}>
+            <Button
+              variant="dark"
+              size="lg"
+              onClick={(e: any) =>
+                this.onClick(e, routes.CREATE_LOAD.replace(":id", poll.id))
+              }
+            >
+              Back
+            </Button>
+          </Col>
+          <Col className={"text-center mt-2"}>
+            <Button
+              variant="dark"
+              size="lg"
+              onClick={(e: any) =>
+                this.publish(e, routes.VOTE.replace(":id", poll.id))
+              }
+            >
+              Create
+            </Button>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 

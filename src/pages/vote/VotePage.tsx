@@ -1,9 +1,8 @@
 import * as React from "react";
 import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
 import { observePoll } from "../../firebase/db";
-import { ISavedPoll, IPoll } from "../../types/vote";
-import * as routes from "../../constants/routes";
-import PollItemView from "../../component/PollItemView";
+import { ISavedPoll, IPollItem } from "../../types/vote";
+import PollView from "../../component/PollView";
 
 export interface IVotePageProps extends ReactRouterProps {}
 
@@ -26,14 +25,15 @@ export default class VotePage extends React.Component<
     });
   }
 
+  public vote(forItem: IPollItem) {
+    console.log(forItem);
+  }
+
   public renderVote(poll: ISavedPoll) {
     if (poll === null) return;
     return (
       <div>
-        <h1>{poll.name}</h1>
-        {poll.voteItem.map((item, i) => (
-          <PollItemView item={item}></PollItemView>
-        ))}
+        <PollView onVotes={this.vote} poll={poll}></PollView>
       </div>
     );
   }

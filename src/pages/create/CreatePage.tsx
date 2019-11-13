@@ -3,6 +3,7 @@ import { IPoll, IPollItem, ISavedPoll } from "../../types/vote";
 import { addPoll, observePoll, updatePoll } from "../../firebase/db";
 import * as routes from "../../constants/routes";
 import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
+import { Form, Button, Card, Row, Col } from "react-bootstrap";
 
 export interface ICreatePageProps extends ReactRouterProps {
   history?: any;
@@ -45,8 +46,13 @@ export default class CreatePage extends React.Component<
     const id = this.props.match.params.id;
     if (id) {
       this.setState({ isLoading: true });
-      observePoll(id, poll => {
-        this.setState({ poll: poll, isLoading: false });
+      const { history } = this.props;
+      observePoll(this.props.match.params.id, poll => {
+        if (poll.isPublished === true) {
+          history.push(routes.VOTE.replace(":id", poll.id));
+        } else {
+          this.setState({ poll: poll, isLoading: false });
+        }
       });
     }
   }
@@ -84,53 +90,109 @@ export default class CreatePage extends React.Component<
     return (
       <div key={key}>
         <hr></hr>
-        <input
-          value={item.description}
-          onChange={event =>
-            this.onUpdate(() => (item.description = event.target.value))
-          }
-          type="text"
-          placeholder="Ask a question"
-        />
-        <input
-          value={item.cost}
-          onChange={event =>
-            this.onUpdate(() => {
-              if (isNaN(parseInt(event.target.value))) {
-                item.cost = undefined;
-              } else {
-                item.cost = parseInt(event.target.value);
-              }
-            })
-          }
-          type="number"
-          placeholder="Cost"
-        />
-        <input
-          value={item.link}
-          onChange={event =>
-            this.onUpdate(() => (item.link = event.target.value))
-          }
-          type="text"
-          placeholder="Link"
-        />
-        <input
-          value={item.image}
-          onChange={event =>
-            this.onUpdate(() => (item.image = event.target.value))
-          }
-          type="text"
-          placeholder="Image"
-        />
-        <input
-          value={item.starFeature}
-          onChange={event =>
-            this.onUpdate(() => (item.starFeature = event.target.value))
-          }
-          type="text"
-          placeholder="starFeature"
-        />
+        <Row>
+          <Col>
+            <Form.Group controlId="description">
+              <Form.Label>Give an option</Form.Label>
+              <Form.Control
+                type="description"
+                value={item.description}
+                placeholder="Definately !"
+                onChange={(event: any) =>
+                  this.onUpdate(() => (item.description = event.target.value))
+                }
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="4">
+            <Form.Group controlId="cost">
+              <Form.Label>Cost</Form.Label>
+              <Form.Control
+                type="number"
+                //value={item.cost.toString()}
+                onChange={(event: any) =>
+                  this.onUpdate(() => {
+                    if (isNaN(parseInt(event.target.value))) {
+                      item.cost = undefined;
+                    } else {
+                      item.cost = parseInt(event.target.value);
+                    }
+                  })
+                }
+              />
+            </Form.Group>
+          </Col>
+          <Col md="8">
+            <Form.Group controlId="starFeature">
+              <Form.Label>Winning feature</Form.Label>
+              <Form.Control
+                type="text"
+                value={item.starFeature}
+                placeholder="Its just works"
+                onChange={(event: any) =>
+                  this.onUpdate(() => (item.starFeature = event.target.value))
+                }
+              />
+            </Form.Group>
+          </Col>
+          <Col md="6">
+            <Form.Group controlId="link">
+              <Form.Label>Link for more information</Form.Label>
+              <Form.Control
+                type="text"
+                value={item.link}
+                placeholder="https://kin.me"
+                onChange={(event: any) =>
+                  this.onUpdate(() => (item.link = event.target.value))
+                }
+              />
+            </Form.Group>
+          </Col>
+          <Col md="6">
+            <Form.Group controlId="image">
+              <Form.Label>Link to an image</Form.Label>
+              <Form.Control
+                type="text"
+                value={item.image}
+                placeholder="https://kin.me/image.jpg"
+                onChange={(event: any) =>
+                  this.onUpdate(() => (item.image = event.target.value))
+                }
+              />
+            </Form.Group>
+          </Col>
+        </Row>
       </div>
+    );
+  }
+  public renderForm(poll: IPoll) {
+    return (
+      <Form onSubmit={(event: any) => this.onSubmit(event)}>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Ask a question</Form.Label>
+          <Form.Control
+            type="name"
+            value={poll.name}
+            placeholder="Should we use kin"
+            onChange={(event: any) =>
+              this.onUpdate(() => (poll.name = event.target.value))
+            }
+          />
+        </Form.Group>
+        {poll.voteItem.map((item, i) => this.renderItem(item, i))}
+        <div className={"text-center mt-4"}>
+          <Button
+            style={{ width: 400 }}
+            size="lg"
+            variant="primary"
+            type="submit"
+          >
+            Preview
+          </Button>
+        </div>
+      </Form>
     );
   }
 
@@ -139,24 +201,19 @@ export default class CreatePage extends React.Component<
     var isInvalid = error === null || error === "";
     return (
       <div>
-        <form onSubmit={event => this.onSubmit(event)}>
-          <div>
-            <input
-              value={poll.name}
-              onChange={event =>
-                this.onUpdate(() => (poll.name = event.target.value))
-              }
-              type="text"
-              placeholder="Ask a question"
-            />
-          </div>
-          {poll.voteItem.map((item, i) => this.renderItem(item, i))}
-          <button disabled={isInvalid} type="submit">
-            Preview
-          </button>
-          {isLoading && <p>Loading....</p>}
-          {isInvalid && <p>{error}</p>}
-        </form>
+        {isLoading && <p>Loading....</p>}
+        <Card>
+          <Card.Body>
+            <Card.Title>Add a new poll by asking a question</Card.Title>
+            <Card.Text>
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </Card.Text>
+            {this.renderForm(poll)}
+          </Card.Body>
+        </Card>
+
+        {isInvalid && <p>{error}</p>}
       </div>
     );
   }
