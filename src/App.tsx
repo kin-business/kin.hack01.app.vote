@@ -15,8 +15,8 @@ const App: React.FC = () => {
   return (
     <Container className="p-5">
       <Row>
-        <Col md={3}></Col>
-        <Col md={6}>
+        <Col lg={3}></Col>
+        <Col lg={6}>
           <Router>
             <Switch>
               <Route exact={true} path={routes.HOME} component={HomePage} />
@@ -35,7 +35,7 @@ const App: React.FC = () => {
             </Switch>
           </Router>
         </Col>
-        <Col md={3}></Col>
+        <Col lg={3}></Col>
       </Row>
     </Container>
   );
