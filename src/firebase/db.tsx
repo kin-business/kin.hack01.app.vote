@@ -8,14 +8,22 @@ export const observePoll = (id: string, callBack: (poll: ISavedPoll) => void) =>
     .collection("polls")
     .doc(id)
     .onSnapshot(x => {
-      callBack({
+      var poll = {
         id: x.id,
         name: x.get("name"),
         voteItem: x.get("voteItem"),
         isPublished: x.get("isPublished") === true,
         voteCount: x.get("voteCount"),
         votes: x.get("votes")
+      };
+      poll.voteItem.forEach((item: any) => {
+        item.votes = 0;
       });
+      poll.votes.forEach((vote: any) => {
+        poll.voteItem[vote.i].votes!++;
+      });
+
+      callBack(poll);
     });
 
 export const addPoll = (poll: IPoll) => {

@@ -20,3 +20,102 @@
 .App-link {
   color: #09d3ac;
 }
+.SocialMediaShareButton {
+  float: left;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.Create-a-new-poll {
+  display: inline-block;
+  width: 265px;
+
+  font-size: 32px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000000;
+  padding-bottom: 10px;
+}
+
+.OptionSpan {
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #000000;
+  font-size: 18px;
+}
+
+.InputField {
+  padding: 23px 10px 26px 10px;
+}
+
+.another {
+  width: 216px;
+  /* height: 10px; */
+  border-radius: 28px;
+  border: solid 1px #000000;
+  background: transparent;
+  vertical-align: middle;
+  padding: 3px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.previewButton {
+  width: 216px;
+  display: inline-block;
+  width: 312px;
+  border: solid 1px #fff46d;
+  border-radius: 28px;
+  font-weight: 500;
+  font-size: 18px;
+  color: #000000;
+  background: transparent;
+  vertical-align: middle;
+  background-color: #fff46d;
+}
+.previewButton:hover {
+  border: solid 1px #fff46d;
+
+  border-radius: 28px;
+  font-weight: 500;
+
+  font-size: 18px;
+  color: #000000;
+  background: transparent;
+  vertical-align: middle;
+  background-color: #fff46d;
+  opacity: 70%;
+}
+.card {
+  border: none;
+}
+.createHeading {
+  display: inline-block;
+  font-size: 32px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000000;
+  margin: 25px 10px;
+}
+.createDescription {
+  font-size: 16px;
+  display: inline-block;
+  width: 312px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000000;
+  margin: 25px 10px;
+}

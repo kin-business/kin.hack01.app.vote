@@ -4,6 +4,18 @@ import { observePoll, voteItem } from "../../firebase/db";
 import { ISavedPoll, IPollItem } from "../../types/vote";
 import PollView from "../../component/PollView";
 import Cookies from "js-cookie";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  WhatsappIcon
+} from "react-share";
+import { Row, Col } from "react-bootstrap";
+import RegisterOnKin from "../../component/RegisterOnKin";
 
 export interface IVotePageProps extends ReactRouterProps {}
 
@@ -47,16 +59,48 @@ export default class VotePage extends React.Component<
 
   public renderVote(poll: ISavedPoll) {
     let { hasVoted } = this.state;
+    let { description, cost } = poll.voteItem
+      .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
+      .map((item, i) => item)[0];
 
     if (poll === null) return;
     return (
-      <div>
-        <PollView
-          hasVoted={hasVoted}
-          onVote={i => this.vote(i)}
-          poll={poll}
-        ></PollView>
-      </div>
+      <>
+        <Row>
+          <Col>
+            <PollView
+              hasVoted={hasVoted}
+              onVote={i => this.vote(i)}
+              poll={poll}
+            ></PollView>
+          </Col>
+        </Row>
+        <Row className={"text-center"}>
+          <Col>
+            <FacebookShareButton quote={poll.name} url={document.location.href}>
+              <FacebookIcon size={32} round={true} />
+            </FacebookShareButton>
+            <LinkedinShareButton url={document.location.href}>
+              <LinkedinIcon size={32} round={true} />
+            </LinkedinShareButton>
+            <TwitterShareButton url={document.location.href}>
+              <TwitterIcon size={32} round={true} />
+            </TwitterShareButton>
+            <WhatsappShareButton url={document.location.href}>
+              <WhatsappIcon size={32} round={true} />
+            </WhatsappShareButton>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={6}>
+            <RegisterOnKin
+              groupName={poll.name}
+              amount={cost ? cost : 1}
+              transactionName={description}
+            ></RegisterOnKin>
+          </Col>
+        </Row>
+      </>
     );
   }
 
