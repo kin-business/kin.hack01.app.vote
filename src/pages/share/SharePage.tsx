@@ -4,7 +4,16 @@ import { ISavedPoll } from "../../types/vote";
 import { observePoll } from "../../firebase/db";
 import * as routes from "../../constants/routes";
 import { Row, Col, Button } from "react-bootstrap";
-
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  WhatsappIcon
+} from "react-share";
 export interface ISharePageProps extends ReactRouterProps {}
 
 export interface ISharePageState extends IStateBase {
@@ -29,6 +38,7 @@ export default class SharePage extends React.Component<
   public render() {
     var { poll } = this.state;
     var history = this.props.history;
+    var link = document.location.href.replace("share", "p");
 
     return (
       <Row>
@@ -59,6 +69,22 @@ export default class SharePage extends React.Component<
                 >
                   Copy link
                 </Button>
+                <Row>
+                  <Col>
+                    <FacebookShareButton quote={poll.name} url={link}>
+                      <FacebookIcon size={32} round={true} />
+                    </FacebookShareButton>
+                    <LinkedinShareButton url={link}>
+                      <LinkedinIcon size={32} round={true} />
+                    </LinkedinShareButton>
+                    <TwitterShareButton url={link}>
+                      <TwitterIcon size={32} round={true} />
+                    </TwitterShareButton>
+                    <WhatsappShareButton url={link}>
+                      <WhatsappIcon size={32} round={true} />
+                    </WhatsappShareButton>
+                  </Col>
+                </Row>
               </>
             ) : (
               <br />

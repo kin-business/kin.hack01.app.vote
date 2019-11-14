@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ISavedPoll, IPollItem } from "../types/vote";
 import PollItemView from "./PollItemView";
-import { Card, Row } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
 
 export interface IPollViewProps {
   poll: ISavedPoll;
@@ -46,12 +46,14 @@ export default class PollView extends React.Component<
               {poll.voteItem
                 .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
                 .map((item, i) => (
-                  <PollItemView
-                    hasVoted={hasVoted ? hasVoted : false}
-                    onVote={vote}
-                    key={i}
-                    item={item}
-                  ></PollItemView>
+                  <Col lg={6}>
+                    <PollItemView
+                      hasVoted={hasVoted ? hasVoted : false}
+                      onVote={vote}
+                      key={i}
+                      item={item}
+                    ></PollItemView>
+                  </Col>
                 ))}
             </Row>
           </Card.Body>

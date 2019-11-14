@@ -25,7 +25,7 @@ export default class PollItemView extends React.Component<
   public renderWithImage(item: IPollItem) {
     let { onVote, hasVoted } = this.props;
     return (
-      <Col className="mt-4" lg={6}>
+      <Col className="mt-4">
         <div className="Rectangle">
           {item.image && <img className="pollItemViewImage" src={item.image} />}
           <div className="pollItemViewHeadin">{item.description}</div>

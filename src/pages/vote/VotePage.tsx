@@ -4,19 +4,11 @@ import { observePoll, voteItem } from "../../firebase/db";
 import { ISavedPoll, IPollItem } from "../../types/vote";
 import PollView from "../../component/PollView";
 import Cookies from "js-cookie";
-import {
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  FacebookIcon,
-  TwitterIcon,
-  LinkedinIcon,
-  WhatsappIcon
-} from "react-share";
+
 import { Row, Col } from "react-bootstrap";
 import RegisterOnKin from "../../component/RegisterOnKin";
 import { drawPolly } from "../home/HomePage";
+import PollItemView from "../../component/PollItemView";
 
 export interface IVotePageProps extends ReactRouterProps {}
 
@@ -60,9 +52,6 @@ export default class VotePage extends React.Component<
 
   public renderVote(poll: ISavedPoll) {
     let { hasVoted } = this.state;
-    let { description, cost } = poll.voteItem
-      .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
-      .map((item, i) => item)[0];
 
     if (poll === null) return;
     return (
@@ -80,42 +69,65 @@ export default class VotePage extends React.Component<
     );
   }
 
-  // <Row className={"text-center"}>
-  //         <Col>
-  //           <FacebookShareButton quote={poll.name} url={document.location.href}>
-  //             <FacebookIcon size={32} round={true} />
-  //           </FacebookShareButton>
-  //           <LinkedinShareButton url={document.location.href}>
-  //             <LinkedinIcon size={32} round={true} />
-  //           </LinkedinShareButton>
-  //           <TwitterShareButton url={document.location.href}>
-  //             <TwitterIcon size={32} round={true} />
-  //           </TwitterShareButton>
-  //           <WhatsappShareButton url={document.location.href}>
-  //             <WhatsappIcon size={32} round={true} />
-  //           </WhatsappShareButton>
-  //         </Col>
-  //       </Row>
-  //       <Row>
-  //         <Col sm={6}>
-  //           <RegisterOnKin
-  //             groupName={poll.name}
-  //             amount={cost ? cost : 1}
-  //             transactionName={description}
-  //           ></RegisterOnKin>
-  //         </Col>
-  //       </Row>
+  public renderVoteCapture() {
+    return (
+      <div>
+        {this.renderVote(this.state.poll!)}
+        <hr />
+        <div className={"text-center"}>{drawPolly()}</div>
+      </div>
+    );
+  }
+
+  public renderVoteDisplay() {
+    let { hasVoted } = this.state;
+    let poll = this.state.poll!;
+    let { description, cost } = poll.voteItem
+      .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
+      .map((item, i) => item)[0];
+    return (
+      <div className="text-center">
+        <div className="pollViewHeading">{poll.name}</div>
+        <div className="pollViewDesc mt-4">
+          {poll.voteCount ? poll.voteCount : 0} people have voted.
+        </div>
+        <div className="m-3">Winner:-)</div>
+        <Row>
+          {poll.voteItem
+            .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
+            .slice(0, 1)
+            .map((item, i) => (
+              <Col lg={{ span: 6, offset: 3 }}>
+                <PollItemView
+                  hasVoted={hasVoted ? hasVoted : false}
+                  key={i}
+                  item={item}
+                ></PollItemView>
+              </Col>
+            ))}
+        </Row>
+
+        <Row className="mt-3">
+          <Col lg={{ span: 6, offset: 3 }}>
+            <RegisterOnKin
+              groupName={poll.name}
+              amount={cost ? cost : 1}
+              transactionName={description}
+            ></RegisterOnKin>
+          </Col>
+        </Row>
+      </div>
+    );
+  }
   public render() {
     return (
       <div>
         {this.state.isLoading ? (
           <div>loading...</div>
+        ) : this.state.hasVoted ? (
+          this.renderVoteDisplay()
         ) : (
-          <div>
-            {this.renderVote(this.state.poll!)}
-            <hr />
-            <div className={"text-center"}>{drawPolly()}</div>
-          </div>
+          this.renderVoteCapture()
         )}
       </div>
     );
