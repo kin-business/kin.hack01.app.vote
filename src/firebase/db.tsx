@@ -1,5 +1,5 @@
-import { db } from "./firebase";
-import { IPoll, ISavedPoll } from "../types/vote";
+import { db, incrementIt } from "./firebase";
+import { IPoll, ISavedPoll, IPollItem } from "../types/vote";
 
 export const observePoll = (id: string, callBack: (poll: ISavedPoll) => void) =>
   db
@@ -10,7 +10,8 @@ export const observePoll = (id: string, callBack: (poll: ISavedPoll) => void) =>
         id: x.id,
         name: x.get("name"),
         voteItem: x.get("voteItem"),
-        isPublished: x.get("isPublished") === true
+        isPublished: x.get("isPublished") === true,
+        votes: x.get("votes")
       });
     });
 
@@ -20,3 +21,11 @@ export const updatePoll = (poll: ISavedPoll) =>
     .collection("polls")
     .doc(poll.id)
     .update(poll);
+
+export const voteItem = (poll: ISavedPoll, forItem: IPollItem) =>
+  db
+    .collection("polls")
+    .doc(poll.id)
+    .update({
+      votes: incrementIt
+    });

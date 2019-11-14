@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
-import { observePoll } from "../../firebase/db";
+import { observePoll, voteItem } from "../../firebase/db";
 import { ISavedPoll, IPollItem } from "../../types/vote";
 import PollView from "../../component/PollView";
 
@@ -8,6 +8,7 @@ export interface IVotePageProps extends ReactRouterProps {}
 
 export interface IVotePageState extends IStateBase {
   poll?: ISavedPoll;
+  hasVoted: boolean;
 }
 
 export default class VotePage extends React.Component<
@@ -16,7 +17,7 @@ export default class VotePage extends React.Component<
 > {
   constructor(props: IVotePageProps) {
     super(props);
-    this.state = { isLoading: true };
+    this.state = { isLoading: true, hasVoted: false };
   }
 
   public componentDidMount() {
@@ -27,13 +28,24 @@ export default class VotePage extends React.Component<
 
   public vote(forItem: IPollItem) {
     console.log(forItem);
+    this.setState({ hasVoted: true, isLoading: true });
+    if (forItem.votes) forItem.votes++;
+    voteItem(this.state.poll!, forItem).then(() => {
+      this.setState({ isLoading: false });
+    });
   }
 
   public renderVote(poll: ISavedPoll) {
+    let { hasVoted } = this.state;
+
     if (poll === null) return;
     return (
       <div>
-        <PollView onVotes={this.vote} poll={poll}></PollView>
+        <PollView
+          hasVoted={hasVoted}
+          onVote={i => this.vote(i)}
+          poll={poll}
+        ></PollView>
       </div>
     );
   }
