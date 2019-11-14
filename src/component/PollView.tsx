@@ -45,7 +45,7 @@ export default class PollView extends React.Component<
                 ))}
             </Row>
             {onVote && (
-              <div className="pollViewDesc">
+              <div className="pollViewDesc mt-4">
                 Current vote count {poll.voteCount ? poll.voteCount : 0}
               </div>
             )}
