@@ -51,7 +51,7 @@ export default class HomePage extends React.Component<
             <div>
               <Button
                 variant="dark"
-                className="previewButton"
+                className="yellowButton"
                 size="lg"
                 onClick={(e: any) => this.onClick(e)}
               >

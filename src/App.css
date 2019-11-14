@@ -65,7 +65,8 @@
   margin-top: 10px;
 }
 
-.previewButton {
+.yellowButton,
+.yellowButton:hover {
   width: 216px;
   display: inline-block;
   width: 312px;
@@ -78,22 +79,15 @@
   vertical-align: middle;
   background-color: #fff46d;
 }
-.previewButton:hover {
-  border: solid 1px #fff46d;
 
-  border-radius: 28px;
-  font-weight: 500;
-
-  font-size: 18px;
-  color: #000000;
-  background: transparent;
-  vertical-align: middle;
-  background-color: #fff46d;
+.yellowButton:hover {
   opacity: 70%;
 }
+
 .card {
   border: none;
 }
+
 .createHeading {
   display: inline-block;
   font-size: 32px;
@@ -106,9 +100,10 @@
   color: #000000;
   margin: 25px 10px;
 }
+
 .createDescription {
   font-size: 16px;
-  display: inline-block;
+  display: block;
   width: 312px;
   font-weight: 500;
   font-stretch: normal;
@@ -118,4 +113,25 @@
   text-align: center;
   color: #000000;
   margin: 25px 10px;
+}
+
+.pollViewHeading {
+  display: block;
+
+  height: 40px;
+  margin: 20px 0px;
+  font-size: 32px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000000;
+}
+
+.pollViewDesc {
+  display: inline-block;
+  font-weight: 500;
+  color: #000000;
 }

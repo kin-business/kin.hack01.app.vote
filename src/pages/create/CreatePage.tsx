@@ -188,7 +188,7 @@ export default class CreatePage extends React.Component<
         </Row>
         <div className={"text-center mt-4"}>
           <Button
-            className="previewButton"
+            className="yellowButton"
             size="lg"
             variant="primary"
             type="submit"

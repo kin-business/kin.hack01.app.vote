@@ -28,12 +28,11 @@ export default class PollView extends React.Component<
     var vote = onVote ? (item: IPollItem) => this.onVoteClick(item) : undefined;
     return (
       <div>
-        <Card>
+        <Card className={"text-center"}>
           <Card.Body>
-            <Card.Title>{poll.name}</Card.Title>
-            <Card.Text>
-              Current vote count {poll.voteCount ? poll.voteCount : 0}
-            </Card.Text>
+            <div className="pollViewHeading">{poll.name}</div>
+            <div className="pollViewDesc">Vote for your preferred option:</div>
+
             {poll.voteItem
               .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
               .map((item, i) => (
@@ -44,6 +43,11 @@ export default class PollView extends React.Component<
                   item={item}
                 ></PollItemView>
               ))}
+            {onVote && (
+              <div className="pollViewDesc">
+                Current vote count {poll.voteCount ? poll.voteCount : 0}
+              </div>
+            )}
           </Card.Body>
         </Card>
       </div>

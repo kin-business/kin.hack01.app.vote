@@ -53,28 +53,29 @@ export default class PreviewPage extends React.Component<
     return (
       <Container>
         <PollView poll={poll}></PollView>
+
         <Row>
           <Col className={"text-center mt-2"}>
             <Button
-              variant="dark"
-              size="lg"
-              onClick={(e: any) =>
-                this.onClick(e, routes.CREATE_LOAD.replace(":id", poll.id))
-              }
-            >
-              Back
-            </Button>
-          </Col>
-          <Col className={"text-center mt-2"}>
-            <Button
-              variant="dark"
-              size="lg"
+              className="yellowButton"
               onClick={(e: any) =>
                 this.publish(e, routes.VOTE.replace(":id", poll.id))
               }
             >
-              Create
+              Publish
             </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col className={"text-center mt-2"}>
+            <button
+              className="another"
+              onClick={(e: any) =>
+                this.onClick(e, routes.CREATE_LOAD.replace(":id", poll.id))
+              }
+            >
+              edit
+            </button>
           </Col>
         </Row>
       </Container>
