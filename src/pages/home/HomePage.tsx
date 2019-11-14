@@ -3,6 +3,7 @@ import * as routes from "../../constants/routes";
 import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
 
 import { Container, Button, Col, Row, Jumbotron } from "react-bootstrap";
+import RegisterOnKin from "../../component/RegisterOnKin";
 
 export interface IHomePageProps extends ReactRouterProps {}
 
@@ -36,7 +37,6 @@ export default class HomePage extends React.Component<
             <div className={"text-center"}>
               <Button
                 variant="dark"
-                style={{ width: 400 }}
                 size="lg"
                 onClick={(e: any) => this.onClick(e)}
               >

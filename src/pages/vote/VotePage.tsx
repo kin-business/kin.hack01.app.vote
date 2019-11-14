@@ -14,6 +14,7 @@ import {
   WhatsappIcon
 } from "react-share";
 import { Row, Col } from "react-bootstrap";
+import RegisterOnKin from "../../component/RegisterOnKin";
 
 export interface IVotePageProps extends ReactRouterProps {}
 
@@ -48,6 +49,9 @@ export default class VotePage extends React.Component<
 
   public renderVote(poll: ISavedPoll) {
     let { hasVoted } = this.state;
+    let { description, cost } = poll.voteItem
+      .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
+      .map((item, i) => item)[0];
 
     if (poll === null) return;
     return (
@@ -75,6 +79,15 @@ export default class VotePage extends React.Component<
             <WhatsappShareButton url={document.location.href}>
               <WhatsappIcon size={32} round={true} />
             </WhatsappShareButton>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={6}>
+            <RegisterOnKin
+              groupName={poll.name}
+              amount={cost ? cost : 1}
+              transactionName={description}
+            ></RegisterOnKin>
           </Col>
         </Row>
       </>

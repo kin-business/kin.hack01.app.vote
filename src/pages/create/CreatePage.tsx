@@ -85,7 +85,7 @@ export default class CreatePage extends React.Component<
       });
     }
   }
-  
+
   public renderItem(item: IPollItem, key: number) {
     return (
       <div key={key}>
@@ -205,10 +205,7 @@ export default class CreatePage extends React.Component<
         <Card>
           <Card.Body>
             <Card.Title>Add a new poll by asking a question</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
+
             {this.renderForm(poll)}
           </Card.Body>
         </Card>
