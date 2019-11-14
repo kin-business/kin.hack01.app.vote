@@ -206,16 +206,22 @@ export default class CreatePage extends React.Component<
     return (
       <div>
         {isLoading && <p>Loading....</p>}
-        <Card>
-          <Card.Body>
-            <div className="text-center">
-              <Card.Title className="Create-a-new-poll">
-                Create a new poll
-              </Card.Title>
-            </div>
-            {this.renderForm(poll)}
-          </Card.Body>
-        </Card>
+        <Row>
+          <Col lg={3}></Col>
+          <Col lg={6}>
+            <Card>
+              <Card.Body>
+                <div className="text-center">
+                  <Card.Title className="Create-a-new-poll">
+                    Create a new poll
+                  </Card.Title>
+                </div>
+                {this.renderForm(poll)}
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col lg={3}></Col>{" "}
+        </Row>
 
         {isInvalid && <p>{error}</p>}
       </div>

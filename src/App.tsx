@@ -14,29 +14,19 @@ import { Container, Row, Col } from "react-bootstrap";
 const App: React.FC = () => {
   return (
     <Container className="p-5">
-      <Row>
-        <Col lg={3}></Col>
-        <Col lg={6}>
-          <Router>
-            <Switch>
-              <Route exact={true} path={routes.HOME} component={HomePage} />
-              <Route
-                exact={true}
-                path={routes.CREATE_LOAD}
-                component={CreatePage}
-              />
-              <Route exact={true} path={routes.CREATE} component={CreatePage} />
-              <Route
-                exact={true}
-                path={routes.PREVIEW}
-                component={PreviewPage}
-              />
-              <Route exact={true} path={routes.VOTE} component={VotePage} />
-            </Switch>
-          </Router>
-        </Col>
-        <Col lg={3}></Col>
-      </Row>
+      <Router>
+        <Switch>
+          <Route exact={true} path={routes.HOME} component={HomePage} />
+          <Route
+            exact={true}
+            path={routes.CREATE_LOAD}
+            component={CreatePage}
+          />
+          <Route exact={true} path={routes.CREATE} component={CreatePage} />
+          <Route exact={true} path={routes.PREVIEW} component={PreviewPage} />
+          <Route exact={true} path={routes.VOTE} component={VotePage} />
+        </Switch>
+      </Router>
     </Container>
   );
 };

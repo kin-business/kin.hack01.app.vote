@@ -1,6 +1,6 @@
 import * as React from "react";
 import { IPollItem } from "../types/vote";
-import { Card, Badge, Button } from "react-bootstrap";
+import { Card, Badge, Button, Row, Col } from "react-bootstrap";
 
 export interface IPollItemViewProps {
   item: IPollItem;
@@ -23,57 +23,55 @@ export default class PollItemView extends React.Component<
   }
 
   public renderWithImage(item: IPollItem) {
+    let { onVote, hasVoted } = this.props;
     return (
-      <Card style={this.defaultStyle} className="bg-dark text-white">
-        <Card.Img src={item.image} alt="Card image" />
-        <Card.ImgOverlay>{this.renderInside(item)}</Card.ImgOverlay>
-      </Card>
+      <Col className="mt-4" lg={6}>
+        <div className="Rectangle">
+          {item.image && <img className="pollItemViewImage" src={item.image} />}
+          <div className="pollItemViewHeadin">{item.description}</div>
+          {item.starFeature && (
+            <div className="pollItemViewFeature">{item.starFeature}</div>
+          )}
+          <Row>
+            <Col sm={8} style={{ textAlign: "left" }}>
+              {item.link && (
+                <a className="pollItemViewLink" href={item.link}>
+                  {item.link}
+                </a>
+              )}
+            </Col>
+            {item.cost && (
+              <Col sm={3} className="pollItemViewCost">
+                R{item.cost}
+              </Col>
+            )}
+          </Row>
+
+          {!hasVoted && (
+            <Button
+              className="voteButton"
+              onClick={() => {
+                if (onVote) onVote(item);
+              }}
+            >
+              Vote for this option
+            </Button>
+          )}
+          {onVote && hasVoted && (
+            <Badge className="float-right" variant="primary">
+              {item.votes ? item.votes : 0}
+            </Badge>
+          )}
+        </div>
+      </Col>
     );
   }
   public onClickVote(item: IPollItem) {
     this.setState({ hasVoted: true });
   }
 
-  public renderInside(item: IPollItem) {
-    let { onVote, hasVoted } = this.props;
-
-    return (
-      <>
-        <Card.Title>{item.description}</Card.Title>
-        {item.starFeature && <Card.Text>{item.starFeature}</Card.Text>}
-        {item.cost && <Badge variant="secondary">R{item.cost}</Badge>}
-        {onVote && !hasVoted && (
-          <Button
-            className="float-right"
-            variant="secondary"
-            onClick={() => onVote!(item)}
-          >
-            Vote
-          </Button>
-        )}
-        {onVote && hasVoted && (
-          <Badge className="float-right" variant="primary">
-            {item.votes ? item.votes : 0}
-          </Badge>
-        )}
-      </>
-    );
-  }
-
-  public renderNoImage(item: IPollItem) {
-    return (
-      <Card style={this.defaultStyle}>
-        <Card.Body>{this.renderInside(item)}</Card.Body>
-      </Card>
-    );
-  }
-
   public render() {
     let item = this.props.item;
-    return (
-      <div>
-        {item.image ? this.renderWithImage(item) : this.renderNoImage(item)}
-      </div>
-    );
+    return <>{this.renderWithImage(item)}</>;
   }
 }
