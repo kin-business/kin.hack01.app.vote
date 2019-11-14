@@ -85,7 +85,7 @@ export default class CreatePage extends React.Component<
       });
     }
   }
-
+  
   public renderItem(item: IPollItem, key: number) {
     return (
       <div key={key}>

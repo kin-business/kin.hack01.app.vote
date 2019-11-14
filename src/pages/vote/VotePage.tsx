@@ -3,6 +3,17 @@ import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
 import { observePoll, voteItem } from "../../firebase/db";
 import { ISavedPoll, IPollItem } from "../../types/vote";
 import PollView from "../../component/PollView";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  WhatsappIcon
+} from "react-share";
+import { Row, Col } from "react-bootstrap";
 
 export interface IVotePageProps extends ReactRouterProps {}
 
@@ -40,13 +51,33 @@ export default class VotePage extends React.Component<
 
     if (poll === null) return;
     return (
-      <div>
-        <PollView
-          hasVoted={hasVoted}
-          onVote={i => this.vote(i)}
-          poll={poll}
-        ></PollView>
-      </div>
+      <>
+        <Row>
+          <Col>
+            <PollView
+              hasVoted={hasVoted}
+              onVote={i => this.vote(i)}
+              poll={poll}
+            ></PollView>
+          </Col>
+        </Row>
+        <Row className={"text-center"}>
+          <Col>
+            <FacebookShareButton quote={poll.name} url={document.location.href}>
+              <FacebookIcon size={32} round={true} />
+            </FacebookShareButton>
+            <LinkedinShareButton url={document.location.href}>
+              <LinkedinIcon size={32} round={true} />
+            </LinkedinShareButton>
+            <TwitterShareButton url={document.location.href}>
+              <TwitterIcon size={32} round={true} />
+            </TwitterShareButton>
+            <WhatsappShareButton url={document.location.href}>
+              <WhatsappIcon size={32} round={true} />
+            </WhatsappShareButton>
+          </Col>
+        </Row>
+      </>
     );
   }
 
