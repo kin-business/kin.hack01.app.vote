@@ -9,24 +9,34 @@ import PreviewPage from "./pages/preview/PreviewPage";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 const App: React.FC = () => {
   return (
-    <Container className="p-4">
-      <Router>
-        <Switch>
-          <Route exact={true} path={routes.HOME} component={HomePage} />
-          <Route
-            exact={true}
-            path={routes.CREATE_LOAD}
-            component={CreatePage}
-          />
-          <Route exact={true} path={routes.CREATE} component={CreatePage} />
-          <Route exact={true} path={routes.PREVIEW} component={PreviewPage} />
-          <Route exact={true} path={routes.VOTE} component={VotePage} />
-        </Switch>
-      </Router>
+    <Container className="p-5">
+      <Row>
+        <Col md={3}></Col>
+        <Col md={6}>
+          <Router>
+            <Switch>
+              <Route exact={true} path={routes.HOME} component={HomePage} />
+              <Route
+                exact={true}
+                path={routes.CREATE_LOAD}
+                component={CreatePage}
+              />
+              <Route exact={true} path={routes.CREATE} component={CreatePage} />
+              <Route
+                exact={true}
+                path={routes.PREVIEW}
+                component={PreviewPage}
+              />
+              <Route exact={true} path={routes.VOTE} component={VotePage} />
+            </Switch>
+          </Router>
+        </Col>
+        <Col md={3}></Col>
+      </Row>
     </Container>
   );
 };
