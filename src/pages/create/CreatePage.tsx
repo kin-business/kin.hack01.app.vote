@@ -37,7 +37,7 @@ export default class CreatePage extends React.Component<
       const { history } = this.props;
       observePoll(this.props.match.params.id, poll => {
         if (poll.isPublished === true) {
-          history.push(routes.VOTE.replace(":id", poll.id));
+          history.push(routes.SHARE.replace(":id", poll.id));
         } else {
           this.setState({ poll: poll, isLoading: false });
         }

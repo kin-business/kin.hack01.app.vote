@@ -6,10 +6,11 @@ import HomePage from "./pages/home/HomePage";
 import CreatePage from "./pages/create/CreatePage";
 import VotePage from "./pages/vote/VotePage";
 import PreviewPage from "./pages/preview/PreviewPage";
+import SharePage from "./pages/share/SharePage";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
             component={CreatePage}
           />
           <Route exact={true} path={routes.CREATE} component={CreatePage} />
+          <Route exact={true} path={routes.SHARE} component={SharePage} />
           <Route exact={true} path={routes.PREVIEW} component={PreviewPage} />
           <Route exact={true} path={routes.VOTE} component={VotePage} />
         </Switch>

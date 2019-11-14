@@ -2,8 +2,7 @@ import * as React from "react";
 import * as routes from "../../constants/routes";
 import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
 
-import { Container, Button, Col, Row, Jumbotron } from "react-bootstrap";
-import RegisterOnKin from "../../component/RegisterOnKin";
+import { Container, Button, Col, Row } from "react-bootstrap";
 
 export interface IHomePageProps extends ReactRouterProps {}
 
@@ -30,7 +29,11 @@ export default class HomePage extends React.Component<
       <Container className={"text-center"}>
         <Row>
           <Col>
-            <img style={{ width: 500, marginTop: 85 }} src="polly.png"></img>
+            <img
+              style={{ width: 500, marginTop: 85 }}
+              src="polly.png"
+              alt="polly"
+            ></img>
           </Col>
         </Row>
         <Row>
@@ -50,7 +53,6 @@ export default class HomePage extends React.Component<
           <Col>
             <div>
               <Button
-                variant="dark"
                 className="yellowButton"
                 size="lg"
                 onClick={(e: any) => this.onClick(e)}
