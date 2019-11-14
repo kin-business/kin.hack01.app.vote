@@ -8,6 +8,33 @@ export interface IHomePageProps extends ReactRouterProps {}
 
 export interface IHomePageState extends IStateBase {}
 
+export function drawPolly() {
+  return (
+    <div>
+      <Row>
+        <Col>
+          <img
+            style={{ width: 500, marginTop: 85 }}
+            src="/polly.png"
+            alt="polly"
+          ></img>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <span className="createHeading">Polly Parrot</span>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <span className="createDescription">
+            Polly parrot makes group decision making super easy. Wanna cracker?
+          </span>
+        </Col>
+      </Row>
+    </div>
+  );
+}
 export default class HomePage extends React.Component<
   IHomePageProps,
   IHomePageState
@@ -27,28 +54,7 @@ export default class HomePage extends React.Component<
   public render() {
     return (
       <Container className={"text-center"}>
-        <Row>
-          <Col>
-            <img
-              style={{ width: 500, marginTop: 85 }}
-              src="polly.png"
-              alt="polly"
-            ></img>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <span className="createHeading">Polly Parrot</span>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <span className="createDescription">
-              Polly parrot makes group decision making super easy. Wanna
-              cracker?
-            </span>
-          </Col>
-        </Row>
+        {drawPolly()}
         <Row>
           <Col>
             <div>

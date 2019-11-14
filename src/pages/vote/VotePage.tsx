@@ -16,6 +16,7 @@ import {
 } from "react-share";
 import { Row, Col } from "react-bootstrap";
 import RegisterOnKin from "../../component/RegisterOnKin";
+import { drawPolly } from "../home/HomePage";
 
 export interface IVotePageProps extends ReactRouterProps {}
 
@@ -75,42 +76,46 @@ export default class VotePage extends React.Component<
             ></PollView>
           </Col>
         </Row>
-        <Row className={"text-center"}>
-          <Col>
-            <FacebookShareButton quote={poll.name} url={document.location.href}>
-              <FacebookIcon size={32} round={true} />
-            </FacebookShareButton>
-            <LinkedinShareButton url={document.location.href}>
-              <LinkedinIcon size={32} round={true} />
-            </LinkedinShareButton>
-            <TwitterShareButton url={document.location.href}>
-              <TwitterIcon size={32} round={true} />
-            </TwitterShareButton>
-            <WhatsappShareButton url={document.location.href}>
-              <WhatsappIcon size={32} round={true} />
-            </WhatsappShareButton>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={6}>
-            <RegisterOnKin
-              groupName={poll.name}
-              amount={cost ? cost : 1}
-              transactionName={description}
-            ></RegisterOnKin>
-          </Col>
-        </Row>
       </>
     );
   }
 
+  // <Row className={"text-center"}>
+  //         <Col>
+  //           <FacebookShareButton quote={poll.name} url={document.location.href}>
+  //             <FacebookIcon size={32} round={true} />
+  //           </FacebookShareButton>
+  //           <LinkedinShareButton url={document.location.href}>
+  //             <LinkedinIcon size={32} round={true} />
+  //           </LinkedinShareButton>
+  //           <TwitterShareButton url={document.location.href}>
+  //             <TwitterIcon size={32} round={true} />
+  //           </TwitterShareButton>
+  //           <WhatsappShareButton url={document.location.href}>
+  //             <WhatsappIcon size={32} round={true} />
+  //           </WhatsappShareButton>
+  //         </Col>
+  //       </Row>
+  //       <Row>
+  //         <Col sm={6}>
+  //           <RegisterOnKin
+  //             groupName={poll.name}
+  //             amount={cost ? cost : 1}
+  //             transactionName={description}
+  //           ></RegisterOnKin>
+  //         </Col>
+  //       </Row>
   public render() {
     return (
       <div>
         {this.state.isLoading ? (
           <div>loading...</div>
         ) : (
-          this.renderVote(this.state.poll!)
+          <div>
+            {this.renderVote(this.state.poll!)}
+            <hr />
+            <div className={"text-center"}>{drawPolly()}</div>
+          </div>
         )}
       </div>
     );

@@ -31,7 +31,17 @@ export default class PollView extends React.Component<
         <Card className={"text-center"}>
           <Card.Body>
             <div className="pollViewHeading">{poll.name}</div>
-            <div className="pollViewDesc">Vote for your preferred option:</div>
+            {onVote ? (
+              <div className="pollViewDesc mt-4">
+                {poll.voteCount ? poll.voteCount : 0} people have voted already.
+                Vote for your preferred option:
+              </div>
+            ) : (
+              <div className="pollViewDesc">
+                Vote for your preferred option:
+              </div>
+            )}
+
             <Row>
               {poll.voteItem
                 .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
@@ -44,11 +54,6 @@ export default class PollView extends React.Component<
                   ></PollItemView>
                 ))}
             </Row>
-            {onVote && (
-              <div className="pollViewDesc mt-4">
-                Current vote count {poll.voteCount ? poll.voteCount : 0}
-              </div>
-            )}
           </Card.Body>
         </Card>
       </div>
