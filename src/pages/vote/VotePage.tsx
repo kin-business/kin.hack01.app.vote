@@ -3,6 +3,7 @@ import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
 import { observePoll, voteItem } from "../../firebase/db";
 import { ISavedPoll, IPollItem } from "../../types/vote";
 import PollView from "../../component/PollView";
+import Cookies from "js-cookie";
 
 export interface IVotePageProps extends ReactRouterProps {}
 
@@ -21,8 +22,16 @@ export default class VotePage extends React.Component<
   }
 
   public componentDidMount() {
-    observePoll(this.props.match.params.id, tests => {
-      this.setState({ poll: tests, isLoading: false });
+    var record = Cookies.get(this.props.match.params.id);
+    this.setState({
+      hasVoted: record !== undefined
+    });
+
+    observePoll(this.props.match.params.id, poll => {
+      this.setState({
+        poll: poll,
+        isLoading: false
+      });
     });
   }
 
@@ -31,6 +40,7 @@ export default class VotePage extends React.Component<
     this.setState({ hasVoted: true, isLoading: true });
     if (forItem.votes) forItem.votes++;
     voteItem(this.state.poll!, forItem).then(() => {
+      Cookies.set(this.state.poll!.id, Date.now().toString());
       this.setState({ isLoading: false });
     });
   }
