@@ -2,11 +2,17 @@ export interface IPoll {
   name: string;
   voteItem: IPollItem[];
   isPublished?: boolean;
-  votes?: number;
+  voteCount?: number;
+  votes?: IVote[];
 }
 
 export interface ISavedPoll extends IPoll {
   id: string;
+}
+
+export interface IVote {
+  i: number;
+  d: number;
 }
 
 export interface IPollItem {

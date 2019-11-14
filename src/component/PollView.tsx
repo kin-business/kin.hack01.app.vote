@@ -25,7 +25,17 @@ export default class PollView extends React.Component<
     if (onVote) onVote(poll);
   }
   public render() {
-    let { poll, hasVoted } = this.props;
+    let { poll, hasVoted, onVote } = this.props;
+
+    var vote = onVote ? (item: IPollItem) => this.onVoteClick(item) : undefined;
+    if (poll.votes) {
+      poll.voteItem.forEach(item => {
+        item.votes = 0;
+      });
+      poll.votes.forEach(vote => {
+        poll.voteItem[vote.i].votes!++;
+      });
+    }
 
     return (
       <div>
@@ -33,12 +43,12 @@ export default class PollView extends React.Component<
           <Card.Body>
             <Card.Title>{poll.name}</Card.Title>
             <Card.Text>
-              Current vote count {poll.votes ? poll.votes : 0}
+              Current vote count {poll.voteCount ? poll.voteCount : 0}
             </Card.Text>
             {poll.voteItem.map((item, i) => (
               <PollItemView
                 hasVoted={hasVoted ? hasVoted : false}
-                onVote={item => this.onVoteClick(item)}
+                onVote={vote}
                 key={i}
                 item={item}
               ></PollItemView>
