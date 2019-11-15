@@ -13,11 +13,13 @@ export interface ICreatePageState extends IStateBase {
   poll: IPoll;
 }
 
-// https://images.pexels.com/photos/1227520/pexels-photo-1227520.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
-// https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
-// https://images.pexels.com/photos/1531677/pexels-photo-1531677.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
-// https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
-// https://images.pexels.com/photos/949587/pexels-photo-949587.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+const images = [
+  "colors/blue.png",
+  "colors/green.png",
+  "colors/purple.png",
+  "colors/red.png",
+  "colors/yellow.png"
+];
 
 export default class CreatePage extends React.Component<
   ICreatePageProps,
@@ -73,6 +75,12 @@ export default class CreatePage extends React.Component<
         history.push(routes.PREVIEW.replace(":id", savedPoll.id));
       });
     } else {
+      for (let index = 0; index < poll.voteItem.length; index++) {
+        const item = poll.voteItem[index];
+        if (!item.image) {
+          item.image = `${document.location.origin}/${images[index]}`;
+        }
+      }
       addPoll(poll).then(result => {
         this.setState({ isLoading: false });
         history.push(routes.PREVIEW.replace(":id", result.id));
@@ -123,7 +131,7 @@ export default class CreatePage extends React.Component<
           <Col md="12">
             <Form.Group controlId="cost">
               <Form.Control
-                type="text"
+                type="number"
                 className="InputField"
                 placeholder="Is there a cost involved?"
                 //value={item.cost.toString()}

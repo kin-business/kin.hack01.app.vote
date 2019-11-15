@@ -117,6 +117,27 @@ export default class VotePage extends React.Component<
             ></RegisterOnKin>
           </Col>
         </Row>
+
+        <Row>
+          <Col>
+            {" "}
+            <div className="pollViewHeading">Other results</div>
+          </Col>
+        </Row>
+        <Row>
+          {poll.voteItem
+            .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
+            .slice(1, 12)
+            .map((item, i) => (
+              <Col lg={{ span: 6, offset: 3 }}>
+                <PollItemView
+                  hasVoted={hasVoted ? hasVoted : false}
+                  key={i}
+                  item={item}
+                ></PollItemView>
+              </Col>
+            ))}
+        </Row>
       </div>
     );
   }
