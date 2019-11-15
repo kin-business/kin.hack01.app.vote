@@ -58,13 +58,12 @@ export default class HomePage extends React.Component<
         <Row>
           <Col>
             <div>
-              <Button
+              <button
                 className="yellowButton"
-                size="lg"
                 onClick={(e: any) => this.onClick(e)}
               >
                 Create a new poll
-              </Button>
+              </button>
             </div>
           </Col>
         </Row>

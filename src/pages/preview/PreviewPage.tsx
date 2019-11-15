@@ -56,14 +56,14 @@ export default class PreviewPage extends React.Component<
 
         <Row>
           <Col className={"text-center mt-2"}>
-            <Button
+            <button
               className="yellowButton"
               onClick={(e: any) =>
-                this.publish(e, routes.VOTE.replace(":id", poll.id))
+                this.publish(e, routes.SHARE.replace(":id", poll.id))
               }
             >
               Publish
-            </Button>
+            </button>
           </Col>
         </Row>
         <Row>

@@ -72,6 +72,6 @@ export default class PollItemView extends React.Component<
 
   public render() {
     let item = this.props.item;
-    return <>{this.renderWithImage(item)}</>;
+    return <>{item.description ? this.renderWithImage(item) : <div></div>}</>;
   }
 }

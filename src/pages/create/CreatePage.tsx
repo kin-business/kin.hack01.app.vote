@@ -13,6 +13,12 @@ export interface ICreatePageState extends IStateBase {
   poll: IPoll;
 }
 
+// https://images.pexels.com/photos/1227520/pexels-photo-1227520.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+// https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+// https://images.pexels.com/photos/1531677/pexels-photo-1531677.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+// https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+// https://images.pexels.com/photos/949587/pexels-photo-949587.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+
 export default class CreatePage extends React.Component<
   ICreatePageProps,
   ICreatePageState
@@ -187,14 +193,9 @@ export default class CreatePage extends React.Component<
           </Col>
         </Row>
         <div className={"text-center mt-4"}>
-          <Button
-            className="yellowButton"
-            size="lg"
-            variant="primary"
-            type="submit"
-          >
+          <button className="yellowButton" type="submit">
             Preview
-          </Button>
+          </button>
         </div>
       </Form>
     );

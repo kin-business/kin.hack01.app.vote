@@ -59,16 +59,15 @@ export default class SharePage extends React.Component<
             {poll ? (
               <>
                 <div className="sharePollTitle">{poll && poll.name}</div>
-                <Button
+                <button
                   className="yellowButton mb-5"
-                  size="lg"
                   onClick={(event: any) => {
                     event.preventDefault();
                     history.push(routes.VOTE.replace(":id", poll!.id));
                   }}
                 >
                   Copy link
-                </Button>
+                </button>
                 <Row>
                   <Col>
                     <FacebookShareButton quote={poll.name} url={link}>

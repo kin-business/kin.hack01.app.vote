@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
 export interface IRegisterOnKinProps {
   groupName: string;
@@ -154,19 +154,41 @@ export default class RegisterOnKin extends React.Component<
     return (
       <Form onSubmit={(event: any) => this.onSubmit(event)}>
         <Form.Group controlId="description">
-          <Form.Label>
-            Enter your email here and we can get your started with a Kin
-          </Form.Label>
-          <Form.Control
-            type="email"
-            value={email}
-            placeholder="example@mail.com"
-            onChange={(event: any) => this.onUpdate(event.target.value)}
-          />
+          <Row>
+            <Col>
+              <div className="registerHeading">
+                Sign up for Kin to share this expense with friends.
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="registerDesc">
+              <div>Keep track of other expenses related to {groupName}</div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm={8}>
+              <Form.Control
+                className="ml-3 InputField"
+                type="email"
+                value={email}
+                placeholder="Your email"
+                onChange={(event: any) => this.onUpdate(event.target.value)}
+              />
+            </Col>
+            <Col sm={1}>
+              <button
+                style={{ width: 150 }}
+                disabled={isLoading}
+                className="yellowButton"
+                type="submit"
+              >
+                Sign up
+              </button>
+            </Col>
+          </Row>
         </Form.Group>
-        <Button disabled={isLoading} size="lg" variant="primary" type="submit">
-          Start kin
-        </Button>
       </Form>
     );
   }

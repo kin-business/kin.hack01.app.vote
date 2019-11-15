@@ -85,11 +85,12 @@ export default class VotePage extends React.Component<
     let { description, cost } = poll.voteItem
       .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
       .map((item, i) => item)[0];
+    let votes = poll.voteCount ? poll.voteCount : 0;
     return (
       <div className="text-center">
         <div className="pollViewHeading">{poll.name}</div>
         <div className="pollViewDesc mt-4">
-          {poll.voteCount ? poll.voteCount : 0} people have voted.
+          {votes} {votes == 1 ? "person has" : "people have"} voted.
         </div>
         <div className="m-3">Winner:-)</div>
         <Row>

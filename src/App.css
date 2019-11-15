@@ -68,6 +68,7 @@
 .yellowButton,
 .yellowButton:hover {
   width: 216px;
+  height: 48px;
   display: inline-block;
   width: 312px;
   border: solid 1px #fff46d;
@@ -78,6 +79,7 @@
   background: transparent;
   vertical-align: middle;
   background-color: #fff46d;
+  padding-bottom: 5px;
 }
 
 .yellowButton:hover {
@@ -245,4 +247,18 @@
   font-weight: 600;
   font-stretch: normal;
   margin: 40px;
+}
+
+.registerHeading {
+  font-size: 31px;
+  font-weight: 600;
+  text-align: left;
+  margin: 20px 20px;
+}
+
+.registerDesc {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+  margin: 10px 20px 30px 16px;
 }
