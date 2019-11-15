@@ -24,10 +24,23 @@ export default class PollItemView extends React.Component<
 
   public renderWithImage(item: IPollItem) {
     let { onVote, hasVoted } = this.props;
+    var votes = item.votes ? item.votes : 0;
     return (
       <Col className="mt-4">
         <div className="Rectangle">
-          {item.image && <img className="pollItemViewImage" src={item.image} />}
+          <div>
+            {item.image && (
+              <img className="pollItemViewImage" src={item.image} />
+            )}
+            {hasVoted && (
+              <div className="middle">
+                <span className="voteCount">
+                  {votes == 1 ? `${votes} vote` : `${votes} votes`}{" "}
+                </span>
+              </div>
+            )}
+          </div>
+
           <div className="pollItemViewHeadin">{item.description}</div>
           {item.starFeature && (
             <div className="pollItemViewFeature">{item.starFeature}</div>
@@ -56,11 +69,6 @@ export default class PollItemView extends React.Component<
             >
               Vote for this option
             </Button>
-          )}
-          {onVote && hasVoted && (
-            <Badge className="float-right" variant="primary">
-              {item.votes ? item.votes : 0}
-            </Badge>
           )}
         </div>
       </Col>
