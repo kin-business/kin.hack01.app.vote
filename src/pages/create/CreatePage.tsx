@@ -67,7 +67,12 @@ export default class CreatePage extends React.Component<
     const { history } = this.props;
     const { poll } = this.state;
     this.setState({ isLoading: true });
-
+    for (let index = 0; index < poll.voteItem.length; index++) {
+      const item = poll.voteItem[index];
+      if (!item.image) {
+        item.image = `${document.location.origin}/${images[index % 5]}`;
+      }
+    }
     var savedPoll = poll as ISavedPoll;
     if (savedPoll.id) {
       updatePoll(savedPoll).then(result => {
@@ -75,12 +80,6 @@ export default class CreatePage extends React.Component<
         history.push(routes.PREVIEW.replace(":id", savedPoll.id));
       });
     } else {
-      for (let index = 0; index < poll.voteItem.length; index++) {
-        const item = poll.voteItem[index];
-        if (!item.image) {
-          item.image = `${document.location.origin}/${images[index]}`;
-        }
-      }
       addPoll(poll).then(result => {
         this.setState({ isLoading: false });
         history.push(routes.PREVIEW.replace(":id", result.id));
