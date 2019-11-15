@@ -42,6 +42,7 @@ export default class SharePage extends React.Component<
 
     return (
       <Row>
+        <Col sm={2}></Col>
         <Col className="text-center">
           <h1 className="sharePollH1">Greate Job!</h1>
           <div className="RectangleGrey">
