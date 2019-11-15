@@ -3,7 +3,7 @@ import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
 import { ISavedPoll } from "../../types/vote";
 import { observePoll } from "../../firebase/db";
 import * as routes from "../../constants/routes";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -42,48 +42,42 @@ export default class SharePage extends React.Component<
 
     return (
       <Row>
-        <Col sm={2}>
-          <img src="/bird.jpg" alt="polly"></img>
-        </Col>
         <Col className="text-center">
-          <h1 className="sharePollH1">Greate Job</h1>
-          <div className="Rectangle">
+          <h1 className="sharePollH1">Greate Job!</h1>
+          <div className="RectangleGrey">
             <img
               className="sharePollRandomImage"
-              src="/randomshit.jpg"
+              src="/poolyshare.png"
               alt="polly"
             ></img>
+
             <div className="sharePollShare">
               Share a link to the poll so people can vote
             </div>
             {poll ? (
               <>
                 <div className="sharePollTitle">{poll && poll.name}</div>
-                <button
-                  className="yellowButton mb-5"
-                  onClick={(event: any) => {
-                    event.preventDefault();
-                    history.push(routes.VOTE.replace(":id", poll!.id));
-                  }}
-                >
-                  Copy link
-                </button>
-                <Row>
-                  <Col>
-                    <FacebookShareButton quote={poll.name} url={link}>
-                      <FacebookIcon size={32} round={true} />
-                    </FacebookShareButton>
-                    <LinkedinShareButton url={link}>
-                      <LinkedinIcon size={32} round={true} />
-                    </LinkedinShareButton>
-                    <TwitterShareButton url={link}>
-                      <TwitterIcon size={32} round={true} />
-                    </TwitterShareButton>
-                    <WhatsappShareButton url={link}>
-                      <WhatsappIcon size={32} round={true} />
-                    </WhatsappShareButton>
-                  </Col>
-                </Row>
+
+                <Form.Control
+                  type="description"
+                  className="InputFieldGrey"
+                  style={{ width: 400, display: "inline" }}
+                  value={link}
+                ></Form.Control>
+                <div className="sharePollShareButtons">
+                  <FacebookShareButton quote={poll.name} url={link}>
+                    <FacebookIcon size={32} round={true} />
+                  </FacebookShareButton>
+                  <LinkedinShareButton url={link}>
+                    <LinkedinIcon size={32} round={true} />
+                  </LinkedinShareButton>
+                  <TwitterShareButton url={link}>
+                    <TwitterIcon size={32} round={true} />
+                  </TwitterShareButton>
+                  <WhatsappShareButton url={link}>
+                    <WhatsappIcon size={32} round={true} />
+                  </WhatsappShareButton>
+                </div>
               </>
             ) : (
               <br />

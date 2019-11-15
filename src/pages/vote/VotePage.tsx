@@ -86,26 +86,26 @@ export default class VotePage extends React.Component<
       .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
       .map((item, i) => item)[0];
     let votes = poll.voteCount ? poll.voteCount : 0;
+    let resultOrderd = poll.voteItem.sort((a, b) =>
+      hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1
+    );
     return (
       <div className="text-center">
         <div className="pollViewHeading">{poll.name}</div>
         <div className="pollViewDesc mt-4">
-          {votes} {votes == 1 ? "person has" : "people have"} voted.
+          {votes} {votes === 1 ? "person has" : "people have"} voted.
         </div>
         <div className="m-3">Winner:-)</div>
         <Row>
-          {poll.voteItem
-            .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
-            .slice(0, 1)
-            .map((item, i) => (
-              <Col lg={{ span: 6, offset: 3 }}>
-                <PollItemView
-                  hasVoted={hasVoted ? hasVoted : false}
-                  key={i}
-                  item={item}
-                ></PollItemView>
-              </Col>
-            ))}
+          {resultOrderd.slice(0, 1).map((item, i) => (
+            <Col lg={{ span: 6, offset: 3 }}>
+              <PollItemView
+                hasVoted={hasVoted ? hasVoted : false}
+                key={i}
+                item={item}
+              ></PollItemView>
+            </Col>
+          ))}
         </Row>
 
         <Row className="mt-3">
@@ -120,23 +120,19 @@ export default class VotePage extends React.Component<
 
         <Row>
           <Col>
-            {" "}
             <div className="pollViewHeading">Other results</div>
           </Col>
         </Row>
         <Row>
-          {poll.voteItem
-            .sort((a, b) => (hasVoted ? (a.votes! < b.votes! ? 1 : -1) : 1))
-            .slice(1, 12)
-            .map((item, i) => (
-              <Col lg={{ span: 6, offset: 3 }}>
-                <PollItemView
-                  hasVoted={hasVoted ? hasVoted : false}
-                  key={i}
-                  item={item}
-                ></PollItemView>
-              </Col>
-            ))}
+          {resultOrderd.slice(1, 12).map((item, i) => (
+            <Col lg={{ span: 6, offset: 3 }}>
+              <PollItemView
+                hasVoted={hasVoted ? hasVoted : false}
+                key={i}
+                item={item}
+              ></PollItemView>
+            </Col>
+          ))}
         </Row>
       </div>
     );

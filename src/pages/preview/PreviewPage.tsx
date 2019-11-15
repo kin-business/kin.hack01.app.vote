@@ -4,7 +4,7 @@ import { ReactRouterProps, IStateBase } from "../../types/BaseInterfaces";
 import { ISavedPoll } from "../../types/vote";
 import PollView from "../../component/PollView";
 import * as routes from "../../constants/routes";
-import { Button, Row, Container, Col } from "react-bootstrap";
+import { Row, Container, Col } from "react-bootstrap";
 
 export interface IPreviewPageProps extends ReactRouterProps {}
 

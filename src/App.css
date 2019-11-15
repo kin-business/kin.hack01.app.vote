@@ -21,7 +21,7 @@
   color: #09d3ac;
 }
 .SocialMediaShareButton {
-  float: left;
+  display: inline-block;
   margin-top: 10px;
   margin-right: 5px;
 }
@@ -53,6 +53,12 @@
   padding: 23px 10px 26px 10px;
 }
 
+.InputFieldGrey {
+  padding: 30px 25px;
+  background-color: #f3f3f3;
+  font-weight: 500;
+}
+
 .another {
   width: 216px;
   /* height: 10px; */
@@ -65,8 +71,7 @@
   margin-top: 10px;
 }
 
-.yellowButton,
-.yellowButton:hover {
+.yellowButton {
   width: 216px;
   height: 48px;
   display: inline-block;
@@ -83,7 +88,7 @@
 }
 
 .yellowButton:hover {
-  opacity: 70%;
+  background-color: #fff33d;
 }
 
 .card {
@@ -145,11 +150,18 @@
   background-color: #ffffff;
 }
 
+.RectangleGrey {
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  background-color: #f3f3f3;
+}
+
 .middle {
   transition: 0.5s ease;
   opacity: 100;
   position: absolute;
-  top: 104px;
+  top: 98px;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -244,7 +256,7 @@
 }
 
 .voteButton:hover {
-  opacity: 70%;
+  background-color: #fff33d;
 }
 .sharePollShare {
   font-size: 16px;
@@ -253,18 +265,21 @@
   font-stretch: normal;
 }
 .sharePollRandomImage {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
+}
+.sharePollShareButtons {
+  display: block;
+  height: 30px;
+  margin: 30px;
+  text-align: center;
 }
 .sharePollH1 {
   margin: 0px 0px 72px;
-  text-align: left;
+
   font-size: 51px;
 }
 .sharePollTitle {
   font-size: 32px;
-  font-weight: 600;
+  font-weight: bolder;
   font-stretch: normal;
   margin: 40px;
 }
